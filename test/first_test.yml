@@ -1,0 +1,23 @@
+config:
+  target: "https://ldawsmscripts-lite-pat-repohapi-fhir1.fusehealth.io/fhir"
+  tls:
+    rejectUnauthorized: false
+  http:
+    pool: 10000
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      name: Warm up
+    - duration: 600
+      arrivalRate: 1000
+      name: Sustain
+scenarios:
+  # We define one scenario:
+  - name: "post patient"
+    flow:
+      - post:
+          url: "/Patient"
+          body: '{"resourceType": "Patient"}'
+          headers:
+            Content-Type: 'application/json+fhir'
+            Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJxZ1pGbFVKUC1YRFJCQU9wM0FwdFpVNE1MU1BiajMtQUFXcEFWSlVRUXVvIn0.eyJleHAiOjE1OTk4NzMwMzQsImlhdCI6MTU5OTgzNzAzNCwianRpIjoiZDMzOTEzYTctM2FmYy00OTZiLTllMTItY2ZmYjc4MTYwYzY4IiwiaXNzIjoiaHR0cHM6Ly9jYy1rZXljbG9hay1mbGV4LmFwcHMubnAxLmZ1c2VhcHBzLmlvL2F1dGgvcmVhbG1zL21zY3JpcHRzIiwic3ViIjoiNjhlYmI4MzctZTM0ZS00ZDExLThjNzYtMjVkODFjYWUwMGRlIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibXNjcmlwdHMtcGF0aWVudHJlcG8tdmFuZGVsYXlmaGlybWFwcGVyIiwic2Vzc2lvbl9zdGF0ZSI6IjNiNDdlZWY4LTVjNWUtNGQyYy04ZTcyLThiOWM1MjM1NjliNiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiUEFUSUVOVFJFUE9fREVNT0dSQVBISUNTX0xPQURFUiJdfSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJjbGllbnRJZCI6Im1zY3JpcHRzLXBhdGllbnRyZXBvLXZhbmRlbGF5Zmhpcm1hcHBlciIsImNsaWVudEhvc3QiOiIxMC4yNTUuMjQ4LjU1IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LW1zY3JpcHRzLXBhdGllbnRyZXBvLXZhbmRlbGF5Zmhpcm1hcHBlciIsImNsaWVudEFkZHJlc3MiOiIxMC4yNTUuMjQ4LjU1In0.jjR0ZfoXADg_FCV904g9l62WYBKtPF4ki5hRiye1nC_02tYNMt_xHuEBqmXM29Y7LC0gFe_pTADPlmd8Mb0Q_dvNDSzpUKY_nDCdnwwHTqgIYpUF2SNcnAJqWAU8TkzYDBGRzH2IrANCkpMoJYr1Uldo8aW0K63pjogNT58G64ARPSbJJyjCYdib0yN0G9jw4FOcCH8t9YdbU78BOBnYdBdAiMBHA5f4X7_YD_OBF7pRLkceXWD1C1BxyYGUHYjoPG-H1tQlVNPnNI-W-8UMSoE6w_iLX9UYS5-MRyIifiBAP1Nux0nD66wosZNNtSLJyX3o0RInXOFVFcAcJ7l-mg'
